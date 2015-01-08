@@ -20,10 +20,10 @@ namespace HMO_Projekt
             line = reader.ReadLine();   //učitaj broj skladišta
             Podaci.brojSkladista = Convert.ToInt32(line);
 
-            Podaci.udaljenosti = new int[Podaci.brojKorisnika, Podaci.brojKorisnika + Podaci.brojSkladista];
+            Podaci.udaljenosti = new int[Podaci.brojKorisnika + Podaci.brojSkladista, Podaci.brojKorisnika + Podaci.brojSkladista];
 
-            
-            for (int i = 0; i < Podaci.brojSkladista; i++)     //stvori objekt za svako skladište
+
+            for (int i = 0; i < Podaci.brojSkladista; i++)  //stvori objekt za svako skladište 
                 Podaci.skladista.Add(new Podaci.Skladiste());
 
             reader.ReadLine();  //preskoči prazan red
@@ -37,6 +37,7 @@ namespace HMO_Projekt
                 Podaci.skladista[i].id = i;
                 Podaci.skladista[i].x = x;
                 Podaci.skladista[i].y = y;
+                Podaci.skladista[i].odabrano = 0;
             }
 
             
@@ -98,6 +99,7 @@ namespace HMO_Projekt
                     int x=Podaci.korisnici[i].x-Podaci.korisnici[j].x;
                     int y=Podaci.korisnici[i].y-Podaci.korisnici[j].y;
                     Podaci.udaljenosti[i, j] =(int) Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2))*100;
+                    Podaci.prosjecnaUdaljenost += Podaci.udaljenosti[i, j];
                 }
 
                 //udaljenost između korisnika i skladišta
@@ -105,11 +107,25 @@ namespace HMO_Projekt
                     int x = Podaci.korisnici[i].x - Podaci.skladista[k - Podaci.brojKorisnika].x;
                     int y = Podaci.korisnici[i].y - Podaci.skladista[k - Podaci.brojKorisnika].y;
                     Podaci.udaljenosti[i, k] =(int) Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2))*100;
+                    Podaci.prosjecnaUdaljenost += Podaci.udaljenosti[i, k];
                 }
             }
 
+            //izračunaj udaljenosti između skladišta (neće se koristiti, računa se samo radi forme)
+            for (int i = 0; i < Podaci.brojSkladista; i++)
+            {
+                for (int j = i; j < Podaci.brojSkladista; j++)
+                {
+                    int x = Podaci.skladista[i].x - Podaci.skladista[j].x;
+                    int y = Podaci.skladista[i].y - Podaci.skladista[j].y;
+                    Podaci.udaljenosti[i + Podaci.brojKorisnika, j + Podaci.brojKorisnika] =(int) Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2))*100;
+                }
+            }
+
+                Podaci.prosjecnaUdaljenost = (int)Podaci.prosjecnaUdaljenost / (Podaci.brojKorisnika * (Podaci.brojKorisnika - 1) / 2 + Podaci.brojSkladista);
+
             //na elemente prije dijagonale upiši elemente simetrične s obzirom na dijagonalu matrice (jer je d(i,j)=d(j,i), d-udaljenost)
-            for (int i = 0; i < Podaci.brojKorisnika; i++)
+            for (int i = 0; i < Podaci.brojKorisnika+Podaci.brojSkladista; i++)
             {
                 for (int j = 0; j < i; j++)
                 {
