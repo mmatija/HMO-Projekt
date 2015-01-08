@@ -16,9 +16,20 @@ namespace HMO_Projekt
             this.beta = beta;
         }
 
+        class Mrav
+        {
+            int pocetnoSkladiste;               //skladište iz kojeg mrav kreće
+            List<int> put = new List<int>();    //konstruirani put
+
+        }
+
         float ro;
         int alfa;
         int beta;
         int brojMrava;
+        float[,] tau = new float[Podaci.brojKorisnika, Podaci.brojKorisnika];
+        float[,] eta = new float[Podaci.brojKorisnika, Podaci.brojKorisnika];
+
+
     }
 }

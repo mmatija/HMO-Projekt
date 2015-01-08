@@ -10,6 +10,7 @@ namespace HMO_Projekt
     {
         public class Skladiste
         {
+            public int id;
             public int x;      //x koordinata skladišta
             public int y;      //y koordinata skladišta
             public int kapacitet;  //kapacitet skladišta
@@ -18,6 +19,7 @@ namespace HMO_Projekt
 
         public class Korisnik
         {
+            public int id;
             public int x;
             public int y;
             public int potraznja;
@@ -30,5 +32,11 @@ namespace HMO_Projekt
         public static int trosakVozila = 0;
         public static List<Skladiste> skladista = new List<Skladiste>();
         public static List<Korisnik> korisnici = new List<Korisnik>();
+
+        //udaljenosti između svih čvorova (udaljenosti[i,j] označava udaljenosti između čvorova i,j)
+        //u redcima su korisnici, a u stupcima i korisnici i skladišta
+        public static int[,] udaljenosti = new int[brojKorisnika, brojKorisnika+brojSkladista];
+        
+        
     }
 }
