@@ -10,80 +10,80 @@ namespace HMO_Projekt
     public class CitanjeDatoteke
     {
 
-        public CitanjeDatoteke(string datoteka, ref List<Skladiste> skladista, ref List<Korisnik> korisnici, ref int brojKorisnika, ref int brojSkladista, ref int kapacitetVozila, ref int trosakVozila)
+        public CitanjeDatoteke(string datoteka)
         {
             StreamReader reader = new StreamReader("HMO-projekt_instanca_problema.txt");
             //StreamReader reader = new StreamReader(datoteka);
             string line = reader.ReadLine();    //učitaj broj korisnika
-            brojKorisnika = Convert.ToInt32(line);
+            Podaci.brojKorisnika = Convert.ToInt32(line);
 
             line = reader.ReadLine();   //učitaj broj skladišta
-            brojSkladista = Convert.ToInt32(line);
+            Podaci.brojSkladista = Convert.ToInt32(line);
 
             
-            for (int i = 0; i < brojSkladista; i++)     //stvori objekt za svako skladište
-                skladista.Add(new Skladiste());
+            for (int i = 0; i < Podaci.brojSkladista; i++)     //stvori objekt za svako skladište
+                Podaci.skladista.Add(new Podaci.Skladiste());
 
             reader.ReadLine();  //preskoči prazan red
 
-            for (int i = 0; i < brojSkladista; i++)    //učitaj koordinate svih skladišta
+            for (int i = 0; i < Podaci.brojSkladista; i++)    //učitaj koordinate svih skladišta
             {
                 line = reader.ReadLine();
                 string[] koordinate = line.Split(new char[] { '\t' });
                 int x = Convert.ToInt32(koordinate[0]);
                 int y = Convert.ToInt32(koordinate[1]);
-                skladista[i].x = x;
-                skladista[i].y = y;
+                Podaci.skladista[i].x = x;
+                Podaci.skladista[i].y = y;
             }
 
             
-            for (int i = 0; i < brojKorisnika; i++)
-                korisnici.Add(new Korisnik());
+            for (int i = 0; i < Podaci.brojKorisnika; i++)
+                Podaci.korisnici.Add(new Podaci.Korisnik());
 
             reader.ReadLine();  //preskoči prazan red
 
-            for (int i = 0; i < brojKorisnika; i++)
+            for (int i = 0; i < Podaci.brojKorisnika; i++)
             {
                 line = reader.ReadLine();
                 string[] koordinate = line.Split(new char[] { '\t' });
                 int x = Convert.ToInt32(koordinate[0]);
                 int y = Convert.ToInt32(koordinate[1]);
-                korisnici[i].x = x;
-                korisnici[i].y = y;
-                korisnici[i].posluzen = false;
+                Podaci.korisnici[i].x = x;
+                Podaci.korisnici[i].y = y;
+                Podaci.korisnici[i].posluzen = false;
 
             }
 
             reader.ReadLine();  //preskoči prazan red
             line = reader.ReadLine();   //učitaj kapacitet vozila
-            kapacitetVozila = Convert.ToInt32(line);
+            Podaci.kapacitetVozila = Convert.ToInt32(line);
             reader.ReadLine();  //preskoči prazan red
 
-            for (int i = 0; i < brojSkladista; i++)
+            for (int i = 0; i < Podaci.brojSkladista; i++)
             {
                 line = reader.ReadLine();
-                skladista[i].kapacitet = Convert.ToInt32(line);
+                Podaci.skladista[i].kapacitet = Convert.ToInt32(line);
             }
 
             reader.ReadLine();  //preskoči prazan red
 
-            for (int i = 0; i < brojKorisnika; i++)
+            for (int i = 0; i < Podaci.brojKorisnika; i++)
             {
                 line = reader.ReadLine();
-                korisnici[i].potraznja = Convert.ToInt32(line);
+                Podaci.korisnici[i].potraznja = Convert.ToInt32(line);
             }
 
             reader.ReadLine();  //preskoči prazan red
 
-            for (int i = 0; i < brojSkladista; i++)
+            for (int i = 0; i < Podaci.brojSkladista; i++)
             {
                 line = reader.ReadLine();
-                skladista[i].trosakOtvaranja = Convert.ToInt32(line);
+                Podaci.skladista[i].trosakOtvaranja = Convert.ToInt32(line);
             }
 
             reader.ReadLine();     //preskoči prazan red
             line = reader.ReadLine();   //učitaj trošak vozila
-            trosakVozila = Convert.ToInt32(line);
+            Podaci.trosakVozila = Convert.ToInt32(line);
             reader.Close();
         }
 
